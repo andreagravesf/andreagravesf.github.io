@@ -7,8 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
     :root {
-        --primary-color: #2d3436; /* Dark Slate (Header Color) */
-        --accent-color: #5a3d3d;  /* Dark Brown */
+        --primary-color: #2d3436;
+        --accent-color: #5a3d3d;
         --text-color: #2d3436;
         --bg-color: #f8f9fa;
         --sheet-bg: #ffffff;
@@ -34,7 +34,7 @@
         .a4-page { box-shadow: none !important; margin: 0; padding: 15mm; border: none; }
     }
 
-    header { width: 100%; background: var(--primary-color); color: #f0e6de; padding: 60px 0; text-align: center; }
+    header { width: 100%; background: var(--primary-color); color: #f0e6de; padding: 60px 20px; text-align: center; box-sizing: border-box; }
     
     .profile-img {
         width: 150px; height: 150px; border-radius: 50%; border: 4px solid #f0e6de;
@@ -53,6 +53,7 @@
     section {
         width: 95%; max-width: 850px; margin: 2rem auto; background: white;
         padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        box-sizing: border-box;
     }
 
     .btn-row { display: flex; justify-content: center; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
@@ -86,9 +87,29 @@
     .close-modal { position: fixed; top: 30px; right: 40px; color: white; font-size: 50px; cursor: pointer; z-index: 1100; }
     .pdf-btn-a4 { margin-top: auto; align-self: center; background: var(--primary-color); font-size: 9pt; padding: 10px 20px; width: 180px; }
 
-    form { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-    input, textarea { padding: 12px; border: 1px solid #e0e0e0; border-radius: 6px; width: 100%; max-width: 500px; box-sizing: border-box; font-family: var(--font-main); }
+    form { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+    input, textarea { padding: 12px; border: 1px solid #e0e0e0; border-radius: 6px; width: 100%; box-sizing: border-box; font-family: var(--font-main); font-size: 1rem; }
     #formStatus { margin-top: 15px; font-size: 0.9rem; text-align: center; display: none; }
+
+    /* MOBILE RESPONSIVE STYLES */
+    @media (max-width: 768px) {
+        header { padding: 40px 20px; }
+        header h1 { font-size: 1.8rem; }
+        .subtitle { font-size: 0.85rem; }
+        .profile-img { width: 120px; height: 120px; }
+        section { padding: 1.5rem; width: 92%; }
+        .btn-row { flex-direction: column; align-items: center; }
+        .btn { width: 240px; }
+        .close-modal { top: 15px; right: 20px; font-size: 40px; }
+    }
+
+    @media (max-width: 430px) {
+        header h1 { font-size: 1.5rem; }
+        .subtitle { font-size: 0.78rem; letter-spacing: 0.05em; }
+        section { padding: 1.2rem; width: 96%; }
+        .btn { width: 220px; }
+        input, textarea { font-size: 16px; } /* prevents iOS auto-zoom on focus */
+    }
 </style>
 </head>
 <body>
@@ -164,7 +185,7 @@
             <div class="case-box">
                 <p><strong>The Problem:</strong> During the 2024 "Mini-Budget" also known as the UK's LDI crisis, Gilt yields spiked 200bps, threatening the solvency of leveraged NBFIs and broader financial stability.</p>
                 <p><strong>The Action:</strong> Designed the risk methodology for an emergency Gilt repo facility to be deployed to Non-Bank Financial Institutions (Insurers and Pensions) in times of market disfunction.</p>
-                <p><strong>The Result:</strong> The framework’s operational transparency drove a substantial improvement in market sentiment and an immediate decrease in implied volatility.</p>
+                <p><strong>The Result:</strong> The framework's operational transparency drove a substantial improvement in market sentiment and an immediate decrease in implied volatility.</p>
             </div>
 
             <h3>Strategic Technical Advisory: UK Foreign Reserves</h3>
