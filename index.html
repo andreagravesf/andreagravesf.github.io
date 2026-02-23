@@ -28,7 +28,7 @@
 
     html {
         scroll-behavior: smooth;
-        scroll-snap-type: y mandatory;
+        scroll-snap-type: y proximity;
     }
     body {
         font-family: var(--font-body);
@@ -45,6 +45,11 @@
 
     footer {
         scroll-snap-align: start;
+    }
+
+    @media (max-width: 860px) {
+        html { scroll-snap-type: none; }
+        section { min-height: auto; }
     }
 
     /* ── REVEAL ── */
@@ -568,7 +573,7 @@
     <img src="photo.jpg" alt="Andrea Graves" class="hero-photo">
     <h1 class="hero-name">Andrea Graves</h1>
     <div class="hero-advisory">Advisory &nbsp;|&nbsp; Governance &nbsp;|&nbsp; Oversight</div>
-    <p class="hero-value">Helping boards govern what they can't always see:<br>the risk beneath the balance sheet.</p>
+    <p class="hero-value">Advising boards on the risks that matter most.</p>
     <div class="hero-cred-strip">
         <span class="hero-cred-item"><strong>Bank of England</strong></span>
         <span class="hero-cred-item"><strong>Tier-1 Financial Institutions</strong></span>
@@ -615,7 +620,7 @@
 
             <!-- Case 1: opens on scroll -->
             <div class="acc-item" data-acc="0">
-                <button class="acc-trigger" aria-expanded="true">
+                <button class="acc-trigger" aria-expanded="false">
                     <div class="acc-trigger-left">
                         <span class="acc-tag">Systemic Risk</span>
                         <span class="acc-title">Gilt Market Facility</span>
@@ -776,78 +781,15 @@
         }
     };
 
-    // ACCORDION — hover on desktop, scroll-triggered on touch devices
-    const accItems = document.querySelectorAll('.acc-item');
-    const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
-
-    // Desktop: open on hover, close on mouse leave
-    accItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            if (!isTouchDevice()) {
-                accItems.forEach(i => { i.classList.remove('open'); i.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false'); });
-                item.classList.add('open');
-                item.querySelector('.acc-trigger').setAttribute('aria-expanded', 'true');
-            }
-        });
-        item.addEventListener('mouseleave', () => {
-            if (!isTouchDevice()) {
-                item.classList.remove('open');
-                item.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        // Keep click working on desktop too for accessibility
-        item.querySelector('.acc-trigger').addEventListener('click', () => {
-            if (isTouchDevice()) {
-                const isOpen = item.classList.contains('open');
-                item.classList.toggle('open', !isOpen);
-                item.querySelector('.acc-trigger').setAttribute('aria-expanded', String(!isOpen));
-            }
+    // ACCORDION — simple click to open/close
+    document.querySelectorAll('.acc-trigger').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const item = trigger.closest('.acc-item');
+            const isOpen = item.classList.contains('open');
+            item.classList.toggle('open', !isOpen);
+            trigger.setAttribute('aria-expanded', String(!isOpen));
         });
     });
-
-    // Mobile/tablet: open as each item scrolls into view
-    if (isTouchDevice()) {
-        const manuallyClosed = new Set();
-
-        accItems.forEach(item => {
-            item.querySelector('.acc-trigger').addEventListener('click', () => {
-                const isOpen = item.classList.contains('open');
-                if (isOpen) {
-                    item.classList.remove('open');
-                    item.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
-                    manuallyClosed.add(item.dataset.acc);
-                } else {
-                    item.classList.add('open');
-                    item.querySelector('.acc-trigger').setAttribute('aria-expanded', 'true');
-                    manuallyClosed.delete(item.dataset.acc);
-                }
-            });
-        });
-
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const item = entry.target;
-                    if (!manuallyClosed.has(item.dataset.acc)) {
-                        // Close others, open this one
-                        accItems.forEach(i => {
-                            if (i !== item) {
-                                i.classList.remove('open');
-                                i.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
-                            }
-                        });
-                        setTimeout(() => {
-                            item.classList.add('open');
-                            item.querySelector('.acc-trigger').setAttribute('aria-expanded', 'true');
-                        }, 150);
-                    }
-                }
-            });
-        }, { threshold: 0.6 });
-
-        accItems.forEach(item => scrollObserver.observe(item));
-    }
 
     // SCROLL REVEAL
     const observer = new IntersectionObserver((entries) => {
