@@ -105,12 +105,8 @@
         margin-bottom: 30px;
         opacity: 0;
         animation: fadeUp 0.8s ease 0.1s forwards;
-        /* Image rendering quality */
-        image-rendering: -webkit-optimize-contrast;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        transform: translateZ(0);
-        filter: contrast(1.05);
+        image-rendering: high-quality;
+        -webkit-font-smoothing: antialiased;
     }
 
     .hero-name {
