@@ -151,7 +151,7 @@
         margin-bottom: 0;
         background: transparent;
         opacity: 0;
-        text-align: left;
+        text-align: center;
         animation: fadeUp 0.9s ease 0.66s forwards;
         display: flex;
         flex-direction: column;
@@ -284,7 +284,7 @@
         max-width: 1000px;
         margin: 0 auto;
         padding: 56px 40px;
-        text-align: left;
+        text-align: center;
     }
 
     .section-label {
@@ -311,7 +311,7 @@
         color: var(--gold);
         line-height: 1;
         margin: 52px 0 14px;
-        text-align: left;
+        text-align: center;
     }
 
     .about-inner .inst-strip {
@@ -336,6 +336,7 @@
         max-width: 1000px;
         margin: 0 auto;
         padding: 56px 40px;
+        text-align: center;
     }
 
     .case-section-title {
@@ -368,18 +369,20 @@
         background: none;
         border: none;
         cursor: pointer;
-        text-align: left;
+        text-align: center;
         transition: background var(--ease);
     }
-    .acc-trigger:hover { background: var(--bg-light); }
-    .acc-item.open .acc-trigger { background: var(--bg-light); }
 
     .acc-trigger-left {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 16px;
-        flex-wrap: wrap;
+        gap: 10px;
+        flex: 1;
+        text-align: center;
     }
+    .acc-trigger:hover { background: var(--bg-light); }
+    .acc-item.open .acc-trigger { background: var(--bg-light); }
 
     .acc-tag {
         font-size: clamp(0.62rem, 1vw, 0.72rem);
@@ -460,6 +463,8 @@
         display: flex;
         flex-direction: column;
         gap: 40px;
+        text-align: center;
+        align-items: center;
     }
 
     .contact-title {
@@ -483,6 +488,7 @@
         flex-wrap: wrap;
         gap: 8px;
         margin-bottom: 24px;
+        justify-content: center;
     }
     .avail-tag {
         font-size: clamp(0.68rem, 1vw, 0.78rem);
@@ -532,8 +538,13 @@
     .form-field input:focus,
     .form-field textarea:focus { border-color: var(--gold-dim); background: var(--bg-light); }
 
+    .contact-inner > * {
+        width: 100%;
+    }
+
     #contactForm {
         width: 100%;
+        text-align: left;
     }
 
     #formStatus {
