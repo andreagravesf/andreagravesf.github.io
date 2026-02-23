@@ -26,9 +26,10 @@
         --ease:         0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    html {
+    html, body {
+        height: 100%;
+        overflow: hidden;
         scroll-behavior: smooth;
-        scroll-snap-type: y proximity;
     }
     body {
         font-family: var(--font-body);
@@ -38,18 +39,26 @@
         overflow-x: hidden;
     }
 
-    section {
+    /* ── SNAP CONTAINER ── */
+    #snap-container {
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+
+    section, footer {
         scroll-snap-align: start;
-        min-height: 100vh;
+        height: 100vh;
+        overflow-y: auto;
+        box-sizing: border-box;
     }
 
     footer {
+        height: auto;
+        min-height: unset;
         scroll-snap-align: start;
-    }
-
-    @media (max-width: 860px) {
-        html { scroll-snap-type: none; }
-        section { min-height: auto; }
     }
 
     /* ── REVEAL ── */
@@ -567,6 +576,7 @@
 </style>
 </head>
 <body>
+<div id="snap-container">
 
 <!-- ── HERO ── -->
 <section id="hero">
@@ -749,6 +759,8 @@
     © 2026 Andrea Graves &nbsp;·&nbsp; Advisory · Governance · Oversight
 </footer>
 
+</div><!-- end snap-container -->
+
 <script>
     // FORM
     const form = document.getElementById("contactForm");
@@ -792,6 +804,7 @@
     });
 
     // SCROLL REVEAL
+    const snapContainer = document.getElementById('snap-container');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -801,7 +814,7 @@
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, { root: snapContainer, threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
